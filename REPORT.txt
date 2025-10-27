@@ -1,0 +1,61 @@
+Wireshark Network Capture and Analysis Report
+
+Objective
+-> To perform live network packet capture using Wireshark in Kali Linux, identify different network protocols in use, and analyze their communication patterns.
+
+Procedure
+
+Installed Wireshark using:
+
+sudo apt install wireshark
+
+
+Started capture on the active interface (eth0) using:
+
+sudo wireshark
+
+
+Generated network traffic by browsing websites and pinging servers.
+
+Stopped capture after one minute and saved the file as capture_kali.pcapng in /home/kali/.
+
+Filtered and analyzed packets using:
+
+tshark -r /home/kali/capture_kali.pcapng -z io,phs -q
+tshark -r /home/kali/capture_kali.pcapng -Y "tcp"
+tshark -r /home/kali/capture_kali.pcapng -Y "dns"
+tshark -r /home/kali/capture_kali.pcapng -Y "icmp"
+
+Observations
+
+Total Packets Captured: 119
+
+Capture Duration: ~1 minute
+
+File Type: .pcapng (Wireshark Capture File)
+
+Protocols Detected:
+
+TCP – Transport control protocol used for reliable communication (port 443).
+
+DNS – Domain Name System queries resolving hostnames (UDP port 53).
+
+TLSv1.2 – Encrypted HTTPS traffic showing secure web sessions.
+
+ICMPv6 – Used for IPv6 network discovery and communication.
+
+ARP & QUIC – Observed for local link resolution and modern encrypted web traffic.
+
+Findings
+
+The system actively communicates using both IPv4 and IPv6 protocols.
+
+Secure connections are established using TLSv1.2 and QUIC during HTTPS browsing.
+
+DNS queries show interaction with Mozilla and Google domains.
+
+No suspicious or abnormal packets were observed — traffic appears normal for web activity.
+
+Conclusion
+
+The Wireshark capture successfully demonstrated packet-level analysis of real network communication. Multiple protocols, including DNS, TCP, TLSv1.2, ICMPv6, and QUIC, were identified. This exercise verified how network layers interact and confirmed that encrypted web traffic (HTTPS) dominates modern browsing sessions.
